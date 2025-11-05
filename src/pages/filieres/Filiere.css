@@ -1,0 +1,461 @@
+
+/* ==== PAGE FILIÈRE ==== */
+.filiere-page {
+  font-family: "Poppins", sans-serif;
+  background: #f9fafb;
+  color: #222;
+  overflow-x: hidden;
+}
+
+/* ==== HEADER ==== */
+.filiere-header {
+  position: relative;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.filiere-header-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.filiere-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+
+.filiere-slogan {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+}
+
+/* Bouton retour */
+.back-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.3s;
+}
+
+.back-button:hover {
+  color: #00aaff;
+}
+
+/* ==== SECTIONS ==== */
+.filiere-section {
+  padding: 60px 10%;
+  text-align: center;
+}
+
+.filiere-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.filiere-section p {
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 25px;
+}
+
+.filiere-section-img {
+  width: 90%;
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  margin-top: 15px;
+}
+
+/* ==== ICONES DES SECTIONS ==== */
+.section-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+/* ==== POURQUOI CHOISIR CETTE FILIÈRE ==== */
+.highlights {
+  background: #f0f8ff;
+  border-top: 2px solid #007bff;
+  border-bottom: 2px solid #007bff;
+  padding: 40px 10%;
+}
+
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.highlight-item {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+.highlight-item .icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+/* ==== COMPÉTENCES ATTENDUES ==== */
+.competences-attendues {
+  background: #f7f9fc;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.competences-attendues ul {
+  list-style: none;
+  padding: 0;
+}
+
+.competences-attendues li {
+  margin: 12px 0;
+  font-size: 1.05rem;
+}
+
+/* ==== DÉBOUCHÉS ET DURÉE ==== */
+.flex-row {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.debouches,
+.duree-formation {
+  background: #f7f9fc;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.debouches {
+  flex: 2;
+}
+
+.duree-formation {
+  flex: 1;
+}
+
+.debouches h2,
+.duree-formation h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.debouches-list {
+  list-style: none;
+  padding: 0;
+}
+
+.debouches-list li {
+  margin: 12px 0;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==== INSCRIPTION ==== */
+.inscription {
+  background: linear-gradient(135deg, #007bff, #00aaff);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.inscription h2 {
+  color: white;
+}
+
+.btn-inscription {
+  display: inline-block;
+  background: white;
+  color: #007bff;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+  margin-top: 15px;
+}
+
+.btn-inscription:hover {
+  background: #0056b3;
+  color: white;
+}
+
+/* Contact */
+.contact-info {
+  margin-top: 25px;
+  font-size: 0.95rem;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ==== SCROLL TOP ==== */
+.scroll-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #007bff;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.scroll-top:hover {
+  background: #0056b3;
+}
+
+/* ==== FOOTER ==== */
+.filiere-footer {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  color: white;
+  margin-top: 50px;
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+  .filiere-header h1 {
+    font-size: 2rem;
+  }
+
+  .filiere-section {
+    padding: 40px 5%;
+  }
+
+  .filiere-section-img {
+    width: 100%;
+  }
+
+  .highlight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .debouches-list {
+    text-align: center;
+  }
+
+  .flex-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .debouches,
+  .duree-formation {
+    width: 100%;
+  }
+}
+
+/* ==== OBJECTIFS DE LA FORMATION ==== */
+.objectifs-formation {
+  background: #f7f9fc;
+  padding: 50px 10%;
+  text-align: center;
+}
+
+.objectifs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.objectif-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.objectif-card:hover {
+  transform: translateY(-5px);
+}
+
+.objectif-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.objectif-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+.objectif-card p {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* ==== STAGES ==== */
+.stages {
+  background: white;
+  padding: 50px 10%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.stages h2 {
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.stages p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ==== INSCRIPTION RÉORGANISÉE ==== */
+.inscription-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 30px;
+  padding: 30px;
+}
+
+.inscription-info,
+.inscription-faq {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.inscription-info p,
+.inscription-faq p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.inscription-formulaire {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.inscription-formulaire form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inscription-formulaire input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.btn-inscription {
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-inscription:hover {
+  background: #0056b3;
+}
+
+.btn-brochure {
+  display: inline-block;
+  margin-top: 15px;
+  background: #00aaff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-brochure:hover {
+  background: #007bff;
+}
+
+.inscription-faq h3 {
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+/* ==== RESPONSIVE POUR OBJECTIFS ET INSCRIPTION ==== */
+@media (max-width: 1024px) {
+  .inscription-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .objectifs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filiere-section {
+    padding: 30px 5%;
+  }
+
+  .inscription-grid {
+    gap: 20px;
+  }
+}

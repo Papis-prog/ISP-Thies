@@ -1,0 +1,165 @@
+.admission-page {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f4f4;
+  color: #333;
+  padding-bottom: 80px;
+}
+
+.back-home-top {
+  position: absolute; /* reste dans la zone du titre */
+  top: 100px; /* augmenté pour descendre la flèche */
+  left: 20px;
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-home-top:hover {
+  background: #0056b3;
+}
+
+.admission-header {
+  position: relative;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.admission-header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.admission-header p {
+  font-size: 18px;
+  color: #555;
+}
+
+.admission-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+  gap: 40px;
+  flex-wrap: wrap;
+  background: white;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.admission-section.reverse {
+  flex-direction: row-reverse; /* garde l'image des Bourses à droite */
+}
+
+.admission-image img {
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.admission-text {
+  max-width: 500px;
+}
+
+.admission-text h2 {
+  font-size: 28px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.admission-text p, .admission-text ul {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.admission-text ul {
+  list-style: disc inside;
+}
+
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+.scroll-top:hover {
+  background: #0056b3;
+}
+
+/* FOOTER */
+.admission-footer {
+  background: #222;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.footer-contact {
+  margin-bottom: 20px;
+}
+
+.footer-contact h3 {
+  margin-bottom: 15px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+}
+
+.contact-form button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.contact-form button:hover {
+  background: #0056b3;
+}
+
+/* Footer infos */
+.footer-info {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-info p {
+  margin: 5px 0;
+}
+
+.footer-info p span {
+  font-weight: bold;
+}
