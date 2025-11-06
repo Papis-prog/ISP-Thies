@@ -98,8 +98,12 @@ export default function Inscription() {
       });
 
       // Envoyer au serveur
-      const res = await axios.post("http://localhost:5000/api/inscription", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+     const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+const res = await axios.post(`${API_URL}/api/inscription`, formData, {
+  headers: { "Content-Type": "multipart/form-data" }
+});
+
       });
 
       if (res.data.success) {
