@@ -283,38 +283,42 @@ export default function Inscription() {
           </section>
         )}
 
-        {/* ETAPE 4: PAIEMENT ET ENVOI */}
-        {step === 4 && (
-          <section className="step">
-            <h2>Étape 4 — Indications de paiement</h2>
-            <ul>
-              <li><strong>Wave :</strong> {PAYMENT_NUMBER}</li>
-              <li><strong>Orange Money :</strong> {PAYMENT_NUMBER}</li>
-            </ul>
-            <label>
-              Mode de paiement
-              <select name="modePaiement" value={inscription.modePaiement || ""} onChange={handleInsChange}>
-                <option value="">-- Aucun --</option>
-                <option value="Institut">Paiement à l'institut</option>
-                <option value="Wave">Wave</option>
-                <option value="Orange Money">Orange Money</option>
-              </select>
-            </label>
-            {(inscription.modePaiement === "Wave" || inscription.modePaiement === "Orange Money") && (
-              <label className="file">
-                Téléverser le reçu *
-                <input type="file" name="recuPaiement" accept=".pdf,image/*" onChange={handleFileChange} required />
-              </label>
-              <p className="note">Tous les fichiers que vous joignez (diplôme, carte d'identité, et reçu si ajouté) seront envoyés par e-mail à l'administration pour vérification. L'admin pourra télécharger les pièces jointes depuis l'e-mail.</p>
+       {/* ETAPE 4: PAIEMENT ET ENVOI */}
+{step === 4 && (
+  <section className="step">
+    <h2>Étape 4 — Indications de paiement</h2>
+    <ul>
+      <li><strong>Wave :</strong> {PAYMENT_NUMBER}</li>
+      <li><strong>Orange Money :</strong> {PAYMENT_NUMBER}</li>
+    </ul>
+    <label>
+      Mode de paiement
+      <select name="modePaiement" value={inscription.modePaiement || ""} onChange={handleInsChange}>
+        <option value="">-- Aucun --</option>
+        <option value="Institut">Paiement à l'institut</option>
+        <option value="Wave">Wave</option>
+        <option value="Orange Money">Orange Money</option>
+      </select>
+    </label>
 
-            )}
-            <div className="nav">
-              <button type="button" className="btn light" onClick={prev}>← Précédent</button>
-              <button type="submit" className="btn primary" disabled={loading}>{loading ? "Envoi..." : "Terminer / Envoyer"}</button>
-            </div>
-          </section>
-        )}
-      </form>
+    {(inscription.modePaiement === "Wave" || inscription.modePaiement === "Orange Money") && (
+      <>
+        <label className="file">
+          Téléverser le reçu *
+          <input type="file" name="recuPaiement" accept=".pdf,image/*" onChange={handleFileChange} required />
+        </label>
+        <p className="note">
+          Tous les fichiers que vous joignez (diplôme, carte d'identité, et reçu si ajouté) seront envoyés par e-mail à l'administration pour vérification. L'admin pourra télécharger les pièces jointes depuis l'e-mail.
+        </p>
+      </>
+    )}
+
+    <div className="nav">
+      <button type="button" className="btn light" onClick={prev}>← Précédent</button>
+      <button type="submit" className="btn primary" disabled={loading}>{loading ? "Envoi..." : "Terminer / Envoyer"}</button>
     </div>
-  );
+  </section>
+)}
+</form>
+);
 }
