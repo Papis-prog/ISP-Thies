@@ -102,7 +102,7 @@ try {
 
  const res = await axios.post(`${API_URL}/api/inscription`, formData, {
   headers: { "Content-Type": "multipart/form-data" }
-});
+
 
 
   if (res.data.success) {
