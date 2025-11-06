@@ -82,57 +82,55 @@ export default function Inscription() {
       return;
     }
 
-    setLoading(true);
-    try {
-      const formData = new FormData();
+   setLoading(true);
+try {
+  const formData = new FormData();
 
-      // Ajouter les fichiers
-      if (files.diplome) formData.append("diplome", files.diplome);
-      if (files.carteIdentite) formData.append("carteIdentite", files.carteIdentite);
-      if (files.recuPaiement) formData.append("recuPaiement", files.recuPaiement);
+  // Ajouter les fichiers
+  if (files.diplome) formData.append("diplome", files.diplome);
+  if (files.carteIdentite) formData.append("carteIdentite", files.carteIdentite);
+  if (files.recuPaiement) formData.append("recuPaiement", files.recuPaiement);
 
-      // Ajouter les champs
-      const allFields = { ...fiche, ...inscription };
-      Object.keys(allFields).forEach(key => {
-        formData.append(key, allFields[key]);
-      });
+  // Ajouter les champs
+  const allFields = { ...fiche, ...inscription };
+  Object.keys(allFields).forEach(key => {
+    formData.append(key, allFields[key]);
+  });
 
-      // Envoyer au serveur
-     const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  // Envoyer au serveur
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-const res = await axios.post(`${API_URL}/api/inscription`, formData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
+  const res = await axios.post(`${API_URL}/api/inscription`, formData, {
+    headers: { "Content-Type": "multipart/form-data" }
+  });
 
-      });
+  if (res.data.success) {
+    alert("✅ Inscription envoyée avec succès !");
+    setStep(1);
+    setReglementAccepted(false);
+    setFiche({
+      prenom: "", nom: "", neLe: "", a: "", adresse: "",
+      bac_obtenu: "", bac_annee: "", bac_mention: "",
+      etab1_annee: "", etab1_nom: "", etab1_classe: "",
+      etab2_annee: "", etab2_nom: "", etab2_classe: ""
+    });
+    setInscription({
+      filiere: "", annee: "1", nom: "", prenom: "",
+      dateNaissance: "", lieuNaissance: "", adresse: "",
+      telephone: "", email: "", tuteur_nom: "", tuteur_prenom: "",
+      tuteur_telephone: "", modePaiement: ""
+    });
+    setFiles({ diplome: null, carteIdentite: null, recuPaiement: null });
+  } else {
+    alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
+  }
+} catch (err) {
+  console.error("Erreur lors de l'envoi :", err);
+  alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
+} finally {
+  setLoading(false);
+}
 
-      if (res.data.success) {
-        alert("✅ Inscription envoyée avec succès !");
-        setStep(1);
-        setReglementAccepted(false);
-        setFiche({
-          prenom: "", nom: "", neLe: "", a: "", adresse: "",
-          bac_obtenu: "", bac_annee: "", bac_mention: "",
-          etab1_annee: "", etab1_nom: "", etab1_classe: "",
-          etab2_annee: "", etab2_nom: "", etab2_classe: ""
-        });
-        setInscription({
-          filiere: "", annee: "1", nom: "", prenom: "",
-          dateNaissance: "", lieuNaissance: "", adresse: "",
-          telephone: "", email: "", tuteur_nom: "", tuteur_prenom: "",
-          tuteur_telephone: "", modePaiement: ""
-        });
-        setFiles({ diplome: null, carteIdentite: null, recuPaiement: null });
-      } else {
-        alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
-      }
-    } catch (err) {
-      console.error("Erreur lors de l'envoi :", err);
-      alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
-    } finally {
-      setLoading(false);
-    }  
-};
 
 
   // progress bar percent (0..100)
