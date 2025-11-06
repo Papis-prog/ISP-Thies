@@ -173,7 +173,7 @@ function App() {
     image: "/images/Genie-informatique.jpg" 
   },
   { 
-    title: "Transport - Logistique", 
+    title: "Transport-Logistique", 
     text: "Gestion du transport et optimisation des flux.", 
     color: "#FFA500", 
     image: "/images/Transport-logistique.jpg" 
