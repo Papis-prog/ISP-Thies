@@ -82,8 +82,7 @@ export default function Inscription() {
       return;
     }
 
-   setLoading(true);
-try {
+ try {
   const formData = new FormData();
 
   // Ajouter les fichiers
@@ -100,10 +99,9 @@ try {
   // Envoyer au serveur
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
- const res = await axios.post(`${API_URL}/api/inscription`, formData, {
-  headers: { "Content-Type": "multipart/form-data" }
-
-
+  const res = await axios.post(`${API_URL}/api/inscription`, formData, {
+    headers: { "Content-Type": "multipart/form-data" } // <-- Ici la fermeture manquante
+  });
 
   if (res.data.success) {
     alert("✅ Inscription envoyée avec succès !");
@@ -131,8 +129,6 @@ try {
 } finally {
   setLoading(false);
 }
-
-
 
   // progress bar percent (0..100)
   const progress = Math.round(((step - 1) / 3) * 100);
@@ -329,3 +325,4 @@ try {
     </div>
   );
 }
+Correction syntaxe handleSubmit
