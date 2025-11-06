@@ -27,7 +27,8 @@ export default function Inscription() {
     filiere: "", annee: "1", nom: "", prenom: "",
     dateNaissance: "", lieuNaissance: "", adresse: "",
     telephone: "", email: "", tuteur_nom: "", tuteur_prenom: "",
-    tuteur_telephone: "", modePaiement: ""
+    tuteur_telephone: "", modePaiement: "",
+    dernierDiplome_intitule: "", dernierDiplome_obtenuEn: ""
   });
 
   // Fichiers
@@ -43,10 +44,12 @@ export default function Inscription() {
     const { name, value } = e.target;
     setFiche(p => ({ ...p, [name]: value }));
   };
+
   const handleInsChange = (e) => {
     const { name, value } = e.target;
     setInscription(p => ({ ...p, [name]: value }));
   };
+
   const handleFileChange = (e) => {
     const { name, files: f } = e.target;
     setFiles(p => ({ ...p, [name]: f && f[0] ? f[0] : null }));
@@ -57,6 +60,7 @@ export default function Inscription() {
     if (!validateStep(step)) return;
     setStep(s => Math.min(4, s + 1));
   };
+
   const prev = () => setStep(s => Math.max(1, s - 1));
 
   // Validation par étape
@@ -76,70 +80,68 @@ export default function Inscription() {
 
   // Soumission du formulaire
   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // Vérification globale des étapes
-  if (!validateStep(1) || !validateStep(2) || !validateStep(3)) {
-    alert("Veuillez compléter toutes les étapes obligatoires avant d'envoyer.");
-    return;
-  }
-
-  try {
-    setLoading(true);
-    const formData = new FormData();
-
-    // Ajouter les fichiers
-    if (files.diplome) formData.append("diplome", files.diplome);
-    if (files.carteIdentite) formData.append("carteIdentite", files.carteIdentite);
-    if (files.recuPaiement) formData.append("recuPaiement", files.recuPaiement);
-
-    // Ajouter tous les champs
-    const allFields = { ...fiche, ...inscription };
-    Object.keys(allFields).forEach(key => {
-      formData.append(key, allFields[key]);
-    });
-
-    // Envoyer au serveur
-    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-    const res = await axios.post(`${API_URL}/api/inscription`, formData, {
-      headers: { "Content-Type": "multipart/form-data" }
-    });
-
-    // Traitement de la réponse
-    if (res.data.success) {
-      alert("✅ Inscription envoyée avec succès !");
-      setStep(1);
-      setReglementAccepted(false);
-      setFiche({
-        prenom: "", nom: "", neLe: "", a: "", adresse: "",
-        bac_obtenu: "", bac_annee: "", bac_mention: "",
-        etab1_annee: "", etab1_nom: "", etab1_classe: "",
-        etab2_annee: "", etab2_nom: "", etab2_classe: ""
-      });
-      setInscription({
-        filiere: "", annee: "1", nom: "", prenom: "",
-        dateNaissance: "", lieuNaissance: "", adresse: "",
-        telephone: "", email: "", tuteur_nom: "", tuteur_prenom: "",
-        tuteur_telephone: "", modePaiement: ""
-      });
-      setFiles({ diplome: null, carteIdentite: null, recuPaiement: null });
-    } else {
-      alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
+    e.preventDefault();
+    if (!validateStep(1) || !validateStep(2) || !validateStep(3)) {
+      alert("Veuillez compléter toutes les étapes obligatoires avant d'envoyer.");
+      return;
     }
-  } catch (err) {
-    console.error("Erreur lors de l'envoi :", err);
-    alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
-  } finally {
-    setLoading(false);
-  }
-};
 
-  // progress bar percent (0..100)
+    setLoading(true);
+    try {
+      const formData = new FormData();
+
+      // Ajouter les fichiers
+      if (files.diplome) formData.append("diplome", files.diplome);
+      if (files.carteIdentite) formData.append("carteIdentite", files.carteIdentite);
+      if (files.recuPaiement) formData.append("recuPaiement", files.recuPaiement);
+
+      // Ajouter les champs
+      const allFields = { ...fiche, ...inscription };
+      Object.keys(allFields).forEach(key => {
+        formData.append(key, allFields[key]);
+      });
+
+      // Envoyer au serveur
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+      const res = await axios.post(`${API_URL}/api/inscription`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
+
+      if (res.data.success) {
+        alert("✅ Inscription envoyée avec succès !");
+        setStep(1);
+        setReglementAccepted(false);
+        setFiche({
+          prenom: "", nom: "", neLe: "", a: "", adresse: "",
+          bac_obtenu: "", bac_annee: "", bac_mention: "",
+          etab1_annee: "", etab1_nom: "", etab1_classe: "",
+          etab2_annee: "", etab2_nom: "", etab2_classe: ""
+        });
+        setInscription({
+          filiere: "", annee: "1", nom: "", prenom: "",
+          dateNaissance: "", lieuNaissance: "", adresse: "",
+          telephone: "", email: "", tuteur_nom: "", tuteur_prenom: "",
+          tuteur_telephone: "", modePaiement: "",
+          dernierDiplome_intitule: "", dernierDiplome_obtenuEn: ""
+        });
+        setFiles({ diplome: null, carteIdentite: null, recuPaiement: null });
+      } else {
+        alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
+      }
+    } catch (err) {
+      console.error("Erreur lors de l'envoi :", err);
+      alert("Erreur d’envoi — vérifiez le serveur ou votre connexion.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Progress bar percent (0..100)
   const progress = Math.round(((step - 1) / 3) * 100);
 
   return (
     <div className="insc-wrap">
-       {/* === HEADER === */}
+      {/* === HEADER === */}
       <header className="insc-header">
         <div className="header-left">
           <img src="logos/institut.jpg" alt="Logo ISP" className="logo" />
@@ -148,9 +150,8 @@ export default function Inscription() {
             <p className="subtext">Institut Supérieur Polytechnique</p>
             <p className="address">184, boulevard Nguinth, Thiès</p>
             <p className="address">Thiès, Sénégal</p>
-            <p className="Telephone">+221 77 794 95 78 / 77 398 63 63 /</p>
-            <p className="Email">ispthies@gmail.com</p>
-            
+            <p className="Telephone">+221 77 794 95 78 / 77 398 63 63</p>
+            <p className="Email">{INSTITUTE_EMAIL}</p>
           </div>
         </div>
         <div className="header-right">
@@ -158,7 +159,6 @@ export default function Inscription() {
         </div>
       </header>
 
-      {/* === TITRE FORMULAIRE === */}
       <div className="form-title">
         Formulaire d'inscription BTS/DTS 2025-2026
       </div>
@@ -170,7 +170,6 @@ export default function Inscription() {
 
       <form ref={formRef} className="insc-form" onSubmit={handleSubmit}>
         <input type="hidden" name="institute_email" value={INSTITUTE_EMAIL} />
-
 
         {/* ---------- ETAPE 1: RÈGLEMENT ---------- */}
         {step === 1 && (
@@ -209,80 +208,52 @@ export default function Inscription() {
           </section>
         )}
 
-        {/* ---------- ETAPE 2: FORMULAIRES ---------- */}
-{step === 2 && (
-  <section className="step">
-    <h2>Étape 2 — Fiche de renseignement & Inscription BTS/DTS</h2>
-
-    <h3>Fiche de renseignement</h3>
-    <div className="grid">
-      <label>Prénom<input name="prenom" value={fiche.prenom} onChange={handleFicheChange} /></label>
-      <label>Nom<input name="nom" value={fiche.nom} onChange={handleFicheChange} /></label>
-      <label>Né(e) le<input type="date" name="neLe" value={fiche.neLe} onChange={handleFicheChange} /></label>
-      <label>À (lieu)<input name="a" value={fiche.a} onChange={handleFicheChange} /></label>
-      <label>Adresse<input name="adresse" value={fiche.adresse} onChange={handleFicheChange} /></label>
-      <label>Baccalauréat (année)<input name="bac_obtenu" value={fiche.bac_obtenu} onChange={handleFicheChange} /></label>
-      <label>Mention<input name="bac_mention" value={fiche.bac_mention} onChange={handleFicheChange} /></label>
-    </div>
-
-    <h4>Établissements (2 dernières années)</h4>
-    <div className="grid">
-      <label>Année<input name="etab1_annee" value={fiche.etab1_annee} onChange={handleFicheChange} /></label>
-      <label>Établissement<input name="etab1_nom" value={fiche.etab1_nom} onChange={handleFicheChange} /></label>
-      <label>Classe<input name="etab1_classe" value={fiche.etab1_classe} onChange={handleFicheChange} /></label>
-      <label>Année<input name="etab2_annee" value={fiche.etab2_annee} onChange={handleFicheChange} /></label>
-      <label>Établissement<input name="etab2_nom" value={fiche.etab2_nom} onChange={handleFicheChange} /></label>
-      <label>Classe<input name="etab2_classe" value={fiche.etab2_classe} onChange={handleFicheChange} /></label>
-    </div>
-
-    <h3>Formulaire d'inscription BTS/DTS</h3>
-    <div className="grid">
-      <label>Filière<input name="filiere" value={inscription.filiere} onChange={handleInsChange} /></label>
-      <label>Année
-        <select name="annee" value={inscription.annee} onChange={handleInsChange}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-        </select>
-      </label>
-      <label>Nom<input name="nom" value={inscription.nom} onChange={handleInsChange} /></label>
-      <label>Prénom<input name="prenom" value={inscription.prenom} onChange={handleInsChange} /></label>
-      <label>Date naissance<input type="date" name="dateNaissance" value={inscription.dateNaissance} onChange={handleInsChange} /></label>
-      <label>Lieu naissance<input name="lieuNaissance" value={inscription.lieuNaissance} onChange={handleInsChange} /></label>
-      <label>Dernier diplôme (intitulé)<input name="dernierDiplome_intitule" value={inscription.dernierDiplome_intitule} onChange={handleInsChange} /></label>
-      <label>Obtenu en (année)<input name="dernierDiplome_obtenuEn" value={inscription.dernierDiplome_obtenuEn} onChange={handleInsChange} /></label>
-      <label>Adresse<input name="adresse" value={inscription.adresse} onChange={handleInsChange} /></label>
-      <label>Téléphone<input name="telephone" value={inscription.telephone} onChange={handleInsChange} /></label>
-      <label>Email<input name="email" value={inscription.email} onChange={handleInsChange} /></label>
-      <label>Nom tuteur<input name="tuteur_nom" value={inscription.tuteur_nom} onChange={handleInsChange} /></label>
-      <label>Prénom tuteur<input name="tuteur_prenom" value={inscription.tuteur_prenom} onChange={handleInsChange} /></label>
-      <label>Téléphone tuteur<input name="tuteur_telephone" value={inscription.tuteur_telephone} onChange={handleInsChange} /></label>
-    </div>
-
-    <div className="nav">
-      <button type="button" className="btn light" onClick={prev}>← Précédent</button>
-      <button type="button" className="btn" onClick={next}>Suivant →</button>
-    </div>
-  </section>
-)}
-
-        {/* ---------- ETAPE 3: JOINDRE DOCUMENTS ---------- */}
-        {step === 3 && (
+        {/* ETAPE 2: FORMULAIRES */}
+        {step === 2 && (
           <section className="step">
-            <h2>Étape 3 — Joindre les documents demandés</h2>
-            <p>Formats acceptés : PDF, JPG, PNG. Taille recommandée ≤ 5 Mo.</p>
+            <h2>Étape 2 — Fiche de renseignement & Inscription BTS/DTS</h2>
 
-            <label className="file">
-              Diplôme (scan / PDF) *
-              <input type="file" name="diplome" accept=".pdf,image/*" onChange={handleFileChange} required />
-            </label>
-
-            <label className="file">
-              Carte d'identité légalisée *
-              <input type="file" name="carteIdentite" accept=".pdf,image/*" onChange={handleFileChange} required />
-            </label>
-
-            <p>Si vous paierez par Wave ou Orange Money, vous pourrez joindre la capture du reçu à l'étape suivante (ou ici).</p>
-
+          <h3>Fiche de renseignement</h3>
+            <div className="grid">
+              <label>Prénom<input name="prenom" value={fiche.prenom} onChange={handleFicheChange} /></label>
+              <label>Nom<input name="nom" value={fiche.nom} onChange={handleFicheChange} /></label>
+              <label>Né(e) le<input type="date" name="neLe" value={fiche.neLe} onChange={handleFicheChange} /></label>
+              <label>À<input name="a" value={fiche.a} onChange={handleFicheChange} /></label>
+              <label>Adresse<input name="adresse" value={fiche.adresse} onChange={handleFicheChange} /></label>
+              <label>Bac (année)<input name="bac_obtenu" value={fiche.bac_obtenu} onChange={handleFicheChange} /></label>
+              <label>Mention<input name="bac_mention" value={fiche.bac_mention} onChange={handleFicheChange} /></label>
+            </div>
+            <h4>Établissements (2 dernières années)</h4>
+            <div className="grid">
+              <label>Année<input name="etab1_annee" value={fiche.etab1_annee} onChange={handleFicheChange} /></label>
+              <label>Établissement<input name="etab1_nom" value={fiche.etab1_nom} onChange={handleFicheChange} /></label>
+              <label>Classe<input name="etab1_classe" value={fiche.etab1_classe} onChange={handleFicheChange} /></label>
+              <label>Année<input name="etab2_annee" value={fiche.etab2_annee} onChange={handleFicheChange} /></label>
+              <label>Établissement<input name="etab2_nom" value={fiche.etab2_nom} onChange={handleFicheChange} /></label>
+              <label>Classe<input name="etab2_classe" value={fiche.etab2_classe} onChange={handleFicheChange} /></label>
+            </div>
+            <h3>Inscription BTS/DTS</h3>
+            <div className="grid">
+              <label>Filière<input name="filiere" value={inscription.filiere} onChange={handleInsChange} /></label>
+              <label>Année
+                <select name="annee" value={inscription.annee} onChange={handleInsChange}>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </label>
+              <label>Nom<input name="nom" value={inscription.nom} onChange={handleInsChange} /></label>
+              <label>Prénom<input name="prenom" value={inscription.prenom} onChange={handleInsChange} /></label>
+              <label>Date naissance<input type="date" name="dateNaissance" value={inscription.dateNaissance} onChange={handleInsChange} /></label>
+              <label>Lieu naissance<input name="lieuNaissance" value={inscription.lieuNaissance} onChange={handleInsChange} /></label>
+              <label>Dernier diplôme<input name="dernierDiplome_intitule" value={inscription.dernierDiplome_intitule} onChange={handleInsChange} /></label>
+              <label>Obtenu en<input name="dernierDiplome_obtenuEn" value={inscription.dernierDiplome_obtenuEn} onChange={handleInsChange} /></label>
+              <label>Adresse<input name="adresse" value={inscription.adresse} onChange={handleInsChange} /></label>
+              <label>Téléphone<input name="telephone" value={inscription.telephone} onChange={handleInsChange} /></label>
+              <label>Email<input name="email" value={inscription.email} onChange={handleInsChange} /></label>
+              <label>Nom tuteur<input name="tuteur_nom" value={inscription.tuteur_nom} onChange={handleInsChange} /></label>
+              <label>Prénom tuteur<input name="tuteur_prenom" value={inscription.tuteur_prenom} onChange={handleInsChange} /></label>
+              <label>Téléphone tuteur<input name="tuteur_telephone" value={inscription.tuteur_telephone} onChange={handleInsChange} /></label>
+            </div>
             <div className="nav">
               <button type="button" className="btn light" onClick={prev}>← Précédent</button>
               <button type="button" className="btn" onClick={next}>Suivant →</button>
@@ -290,35 +261,53 @@ export default function Inscription() {
           </section>
         )}
 
-        {/* ---------- ETAPE 4: PAIEMENT ET ENVOI ---------- */}
+        {/* ETAPE 3: JOINDRE DOCUMENTS */}
+        {step === 3 && (
+          <section className="step">
+            <h2>Étape 3 — Joindre les documents</h2>
+            <p>Formats acceptés : PDF, JPG, PNG. Taille ≤ 5 Mo.</p>
+            <label className="file">
+              Diplôme *
+              <input type="file" name="diplome" accept=".pdf,image/*" onChange={handleFileChange} required />
+            </label>
+            <label className="file">
+              Carte d'identité *
+              <input type="file" name="carteIdentite" accept=".pdf,image/*" onChange={handleFileChange} required />
+            </label>
+           <p>Si vous paierez par Wave ou Orange Money, vous pourrez joindre la capture du reçu à l'étape suivante (ou ici).</p>
+          
+            <div className="nav">
+              <button type="button" className="btn light" onClick={prev}>← Précédent</button>
+              <button type="button" className="btn" onClick={next}>Suivant →</button>
+            </div>
+          </section>
+        )}
+
+        {/* ETAPE 4: PAIEMENT ET ENVOI */}
         {step === 4 && (
           <section className="step">
             <h2>Étape 4 — Indications de paiement</h2>
-            <p>Veuillez passer à l'école pour payer les frais d'inscription. Vous pouvez aussi payer via Wave ou Orange Money :</p>
             <ul>
               <li><strong>Wave :</strong> {PAYMENT_NUMBER}</li>
               <li><strong>Orange Money :</strong> {PAYMENT_NUMBER}</li>
             </ul>
-
             <label>
-              Mode de paiement (si déjà payé)
-              <select name="modePaiement" value={inscription.modePaiement || ""} onChange={(e) => handleInsChange(e)}>
+              Mode de paiement
+              <select name="modePaiement" value={inscription.modePaiement || ""} onChange={handleInsChange}>
                 <option value="">-- Aucun --</option>
                 <option value="Institut">Paiement à l'institut</option>
                 <option value="Wave">Wave</option>
                 <option value="Orange Money">Orange Money</option>
               </select>
             </label>
-
             {(inscription.modePaiement === "Wave" || inscription.modePaiement === "Orange Money") && (
               <label className="file">
-                Téléverser la capture du reçu de paiement *
+                Téléverser le reçu *
                 <input type="file" name="recuPaiement" accept=".pdf,image/*" onChange={handleFileChange} required />
               </label>
+              <p className="note">Tous les fichiers que vous joignez (diplôme, carte d'identité, et reçu si ajouté) seront envoyés par e-mail à l'administration pour vérification. L'admin pourra télécharger les pièces jointes depuis l'e-mail.</p>
+
             )}
-
-            <p className="note">Tous les fichiers que vous joignez (diplôme, carte d'identité, et reçu si ajouté) seront envoyés par e-mail à l'administration pour vérification. L'admin pourra télécharger les pièces jointes depuis l'e-mail.</p>
-
             <div className="nav">
               <button type="button" className="btn light" onClick={prev}>← Précédent</button>
               <button type="submit" className="btn primary" disabled={loading}>{loading ? "Envoi..." : "Terminer / Envoyer"}</button>
@@ -329,4 +318,3 @@ export default function Inscription() {
     </div>
   );
 }
-Correction syntaxe handleSubmit
