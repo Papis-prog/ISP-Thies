@@ -188,7 +188,7 @@ function App() {
     title: "Informatique de Gestion", 
     text: "Logiciels de gestion et ERP pour entreprises.", 
     color: "#FF69B4", 
-    image: "/images/Informatique-gestion.jpg" 
+    image: "public/images/Informatique-gestion.jpg" 
   },
 ];
 
