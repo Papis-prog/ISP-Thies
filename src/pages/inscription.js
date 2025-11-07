@@ -99,9 +99,9 @@ export default function Inscription() {
 
       // Envoyer au serveur
      // Remplace l'URL directe par la variable
-const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/inscription`, formData, {
-  headers: { "Content-Type": "multipart/form-data" },
-});
+const res = await axios.post("http://isp-thies.onrender.com/api/inscription", formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
 
       
       if (res.data.success) {
